@@ -42,8 +42,8 @@ export interface components {
       statusCode: number;
       msg: string;
       data: components["schemas"]["Empty"];
-      fail: boolean;
       success: boolean;
+      fail: boolean;
     };
     LoginRequestBody: {
       username: string;
@@ -68,8 +68,8 @@ export interface components {
       statusCode: number;
       msg: string;
       data: components["schemas"]["LoginResponseBody"];
-      fail: boolean;
       success: boolean;
+      fail: boolean;
     };
     GetItemsResponseBody: {
       items: components["schemas"]["PostListItemDto"][];
@@ -92,8 +92,8 @@ export interface components {
       statusCode: number;
       msg: string;
       data: components["schemas"]["GetItemsResponseBody"];
-      fail: boolean;
       success: boolean;
+      fail: boolean;
     };
     GetItemResponseBody: {
       item: components["schemas"]["PostDto"];
@@ -117,8 +117,8 @@ export interface components {
       statusCode: number;
       msg: string;
       data: components["schemas"]["GetItemResponseBody"];
-      fail: boolean;
       success: boolean;
+      fail: boolean;
     };
     GetMineResponseBody: {
       items: components["schemas"]["PostListItemDto"][];
@@ -129,8 +129,8 @@ export interface components {
       statusCode: number;
       msg: string;
       data: components["schemas"]["GetMineResponseBody"];
-      fail: boolean;
       success: boolean;
+      fail: boolean;
     };
     MeResponseBody: {
       item: components["schemas"]["MemberDto"];
@@ -141,8 +141,8 @@ export interface components {
       statusCode: number;
       msg: string;
       data: components["schemas"]["MeResponseBody"];
-      fail: boolean;
       success: boolean;
+      fail: boolean;
     };
   };
   responses: never;

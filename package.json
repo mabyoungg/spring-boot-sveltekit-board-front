@@ -44,6 +44,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@toast-ui/editor": "^3.2.2",
 		"openapi-fetch": "^0.9.5",
 		"toastr": "^2.1.4"
 	}

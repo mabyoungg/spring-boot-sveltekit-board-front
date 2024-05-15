@@ -1,7 +1,8 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import type { components } from '$lib/types/api/v1/schema';
 
-	const post = $page.data.post;
+	const { data } = $props<{ data: { post: components['schemas']['PostDto'] } }>();
+  	const { post } = data;
 </script>
 
 <svelte:head>

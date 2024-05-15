@@ -52,6 +52,14 @@ class Rq {
 		};
 	}
 
+	public apiEndPointsWithFetch(fetch: any) {
+		return createClient<paths>({
+		  baseUrl: import.meta.env.VITE_CORE_API_BASE_URL,
+		  credentials: 'include',
+		  fetch
+		});
+	  }
+
 	public apiEndPoints() {
 		return createClient<paths>({
 			baseUrl: import.meta.env.VITE_CORE_API_BASE_URL,
@@ -67,7 +75,7 @@ class Rq {
 		toastr.error(message);
 	}
 
-	public goto(url: string) {
+	public goTo(url: string) {
 		goto(url);
 	}
 
@@ -142,11 +150,19 @@ class Rq {
 	}
 
 	public goToMain() {
-		this.goto('/');
+		this.goTo('/');
 	}
 
+	public async goToTempPostEditPage() {
+		const { data } = await this.apiEndPoints().POST('/api/v1/posts/temp');
+	
+		if (data) {
+		  this.goTo(`/post/${data.data.item.id}/edit`);
+		}
+	  }
+
 	public goToLoginPage() {
-		this.goto('/member/login');
+		this.goTo('/member/login');
 	}
 
 	public effect(fn: () => void) {

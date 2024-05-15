@@ -11,7 +11,9 @@
 	import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 	import '@toast-ui/editor-plugin-table-merged-cell/dist/toastui-editor-plugin-table-merged-cell.css';
 
-	let div: HTMLDivElement;
+	const { body } = $props<{ body: string }>();
+
+	let div: HTMLDivElement | undefined = $state();
 
 	rq.effect(async () => {
 		const [
@@ -184,20 +186,14 @@
 			previewStyle: 'tab',
 			useCommandShortcut: false,
 			language: 'ko-KR',
-			initialValue: stripIndent(`
-			$$config
-			title: 제목
-			open: true
-			tags: #TAG1 #TAG2
-			$$
-			`).trim(),
+			initialValue: body,
 			placeholder: stripIndent(`
-			$$config
-			title: 제목
-			open: true
-			tags: #TAG1 #TAG2
-			$$
-			`).trim(),
+							$$config
+							title: 제목
+							open: true
+							tags: #TAG1 #TAG2
+							$$
+							`).trim(),
 			plugins: [
 				codeSyntaxHighlight,
 				[chart, chartOptions],

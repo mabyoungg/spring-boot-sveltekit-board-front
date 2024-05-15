@@ -5,6 +5,10 @@
 
 
 export interface paths {
+  "/api/v1/posts/temp": {
+    /** 임시 글 생성 */
+    post: operations["makeTemp"];
+  };
   "/api/v1/members/logout": {
     /** 로그아웃 */
     post: operations["logout"];
@@ -45,6 +49,32 @@ export interface components {
       fail: boolean;
       success: boolean;
     };
+    MakeTempResponseBody: {
+      item: components["schemas"]["PostDto"];
+    };
+    PostDto: {
+      body?: string;
+      /** Format: int64 */
+      id: number;
+      published: boolean;
+      title: string;
+      /** Format: date-time */
+      createDate: string;
+      /** Format: date-time */
+      modifyDate: string;
+      /** Format: int64 */
+      authorId: number;
+      authorUsername: string;
+    };
+    RsDataMakeTempResponseBody: {
+      resultCode: string;
+      /** Format: int32 */
+      statusCode: number;
+      msg: string;
+      data: components["schemas"]["MakeTempResponseBody"];
+      fail: boolean;
+      success: boolean;
+    };
     LoginRequestBody: {
       username: string;
       password: string;
@@ -77,6 +107,8 @@ export interface components {
     PostListItemDto: {
       /** Format: int64 */
       id: number;
+      published: boolean;
+      title: string;
       /** Format: date-time */
       createDate: string;
       /** Format: date-time */
@@ -84,7 +116,6 @@ export interface components {
       /** Format: int64 */
       authorId: number;
       authorUsername: string;
-      title: string;
     };
     RsDataGetItemsResponseBody: {
       resultCode: string;
@@ -97,19 +128,6 @@ export interface components {
     };
     GetItemResponseBody: {
       item: components["schemas"]["PostDto"];
-    };
-    PostDto: {
-      /** Format: int64 */
-      id: number;
-      /** Format: date-time */
-      createDate: string;
-      /** Format: date-time */
-      modifyDate: string;
-      /** Format: int64 */
-      authorId: number;
-      authorUsername: string;
-      title: string;
-      body: string;
     };
     RsDataGetItemResponseBody: {
       resultCode: string;
@@ -158,6 +176,23 @@ export type external = Record<string, never>;
 
 export interface operations {
 
+  /** 임시 글 생성 */
+  makeTemp: {
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["RsDataMakeTempResponseBody"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        content: {
+          "*/*": components["schemas"]["RsDataEmpty"];
+        };
+      };
+    };
+  };
   /** 로그아웃 */
   logout: {
     responses: {

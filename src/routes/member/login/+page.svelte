@@ -23,7 +23,7 @@
 		if (data) {
 			rq.msgInfo('환영합니다.');
 			rq.setLogined(data.data.item);
-			rq.goto('/');
+			rq.goTo('/');
 		} else if (error) {
 			rq.msgError(error.msg);
 		}

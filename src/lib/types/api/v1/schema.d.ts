@@ -5,6 +5,12 @@
 
 
 export interface paths {
+  "/api/v1/posts/{id}": {
+    /** 글 */
+    get: operations["getItem"];
+    /** 글 수정 */
+    put: operations["edit"];
+  };
   "/api/v1/posts/temp": {
     /** 임시 글 생성 */
     post: operations["makeTemp"];
@@ -20,10 +26,6 @@ export interface paths {
   "/api/v1/posts": {
     /** 글 리스트 */
     get: operations["getItems"];
-  };
-  "/api/v1/posts/{id}": {
-    /** 글 */
-    get: operations["getItem"];
   };
   "/api/v1/posts/mine": {
     /** 내 글 리스트 */
@@ -49,22 +51,37 @@ export interface components {
       fail: boolean;
       success: boolean;
     };
-    MakeTempResponseBody: {
+    EditRequestBody: {
+      body: string;
+    };
+    EditResponseBody: {
       item: components["schemas"]["PostDto"];
     };
     PostDto: {
       body?: string;
       /** Format: int64 */
       id: number;
-      published: boolean;
       title: string;
       /** Format: date-time */
-      createDate: string;
-      /** Format: date-time */
       modifyDate: string;
+      /** Format: date-time */
+      createDate: string;
+      published: boolean;
       /** Format: int64 */
       authorId: number;
       authorUsername: string;
+    };
+    RsDataEditResponseBody: {
+      resultCode: string;
+      /** Format: int32 */
+      statusCode: number;
+      msg: string;
+      data: components["schemas"]["EditResponseBody"];
+      fail: boolean;
+      success: boolean;
+    };
+    MakeTempResponseBody: {
+      item: components["schemas"]["PostDto"];
     };
     RsDataMakeTempResponseBody: {
       resultCode: string;
@@ -107,12 +124,12 @@ export interface components {
     PostListItemDto: {
       /** Format: int64 */
       id: number;
-      published: boolean;
       title: string;
       /** Format: date-time */
-      createDate: string;
-      /** Format: date-time */
       modifyDate: string;
+      /** Format: date-time */
+      createDate: string;
+      published: boolean;
       /** Format: int64 */
       authorId: number;
       authorUsername: string;
@@ -176,6 +193,55 @@ export type external = Record<string, never>;
 
 export interface operations {
 
+  /** 글 */
+  getItem: {
+    parameters: {
+      path: {
+        id: number;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["RsDataGetItemResponseBody"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        content: {
+          "*/*": components["schemas"]["RsDataEmpty"];
+        };
+      };
+    };
+  };
+  /** 글 수정 */
+  edit: {
+    parameters: {
+      path: {
+        id: number;
+      };
+    };
+    requestBody: {
+      content: {
+        "*/*": components["schemas"]["EditRequestBody"];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["RsDataEditResponseBody"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        content: {
+          "*/*": components["schemas"]["RsDataEmpty"];
+        };
+      };
+    };
+  };
   /** 임시 글 생성 */
   makeTemp: {
     responses: {
@@ -239,28 +305,6 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["RsDataGetItemsResponseBody"];
-        };
-      };
-      /** @description Internal Server Error */
-      500: {
-        content: {
-          "*/*": components["schemas"]["RsDataEmpty"];
-        };
-      };
-    };
-  };
-  /** 글 */
-  getItem: {
-    parameters: {
-      path: {
-        id: number;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        content: {
-          "application/json": components["schemas"]["RsDataGetItemResponseBody"];
         };
       };
       /** @description Internal Server Error */

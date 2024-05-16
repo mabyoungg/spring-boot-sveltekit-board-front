@@ -14,8 +14,8 @@
 	const {
 		body,
 		viewer = false,
-		key = null
-	} = $props<{ body: string; viewer?: boolean; key?: any }>();
+		height = 'calc(100dvh - 64px)'
+	} = $props<{ body: string; viewer?: boolean; height?: string }>();
 
 	let div: HTMLDivElement | undefined = $state();
 	let editor: any;
@@ -253,7 +253,7 @@
 				})
 			: new Editor({
 				el: div,
-				height: 'calc(100dvh - 48px)',
+				height,
 				initialEditType: 'markdown',
 				previewStyle: 'tab',
 				useCommandShortcut: false,
@@ -306,7 +306,7 @@
 					window.open('http://onpaste.com/');
 					return true;
 					});
-					
+
 				editor.removeToolbarItem('image');
 				editor.insertToolbarItem(
 					{ groupIndex: 3, itemIndex: 1 },

@@ -2,10 +2,7 @@
   import { page } from '$app/stores';
   import ToastUiEditor from '$lib/components/ToastUiEditor.svelte';
   import rq from '$lib/rq/rq.svelte';
-  import type { components } from '$lib/types/api/v1/schema';
   import hotkeys from 'hotkeys-js';
-
-  let post: components['schemas']['PostDto'] | null = $state(null);
 
   let oldBody: string = '';
 
@@ -55,7 +52,7 @@
     }
   };
 
-  $effect(() => {
+  rq.effect(() => {
     hotkeys.filter = function (event) {
       return true;
     };
@@ -77,18 +74,19 @@
     };
   });
 
-  rq.effect(async () => {
-    const { data, error } = await rq
+  async function load() {
+    const { data } = await rq
       .apiEndPoints()
       .GET('/api/v1/posts/{id}', { params: { path: { id: parseInt($page.params.id) } } });
       
-    post = data!.data.item;
-    oldBody = post.body;
-  });
+    return data!;
+  };
 </script>
 
-{#if post}
+{#await load()}
+  <div>loading...</div>
+{:then { data: { item: post } }}
   {#key post.id}
     <ToastUiEditor bind:this={toastUiEditor} body={post.body} />
   {/key}
-{/if}
+{/await}

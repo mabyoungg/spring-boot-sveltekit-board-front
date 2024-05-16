@@ -67,9 +67,9 @@ export interface components {
       modifyDate: string;
       /** Format: date-time */
       createDate: string;
-      authorUsername: string;
       /** Format: int64 */
       authorId: number;
+      authorUsername: string;
     };
     RsDataEditResponseBody: {
       resultCode: string;
@@ -141,9 +141,9 @@ export interface components {
       modifyDate: string;
       /** Format: date-time */
       createDate: string;
-      authorUsername: string;
       /** Format: int64 */
       authorId: number;
+      authorUsername: string;
     };
     RsDataGetItemsResponseBody: {
       resultCode: string;

@@ -64,12 +64,12 @@ export interface components {
       title: string;
       published: boolean;
       /** Format: date-time */
-      createDate: string;
-      /** Format: date-time */
       modifyDate: string;
+      /** Format: date-time */
+      createDate: string;
+      authorUsername: string;
       /** Format: int64 */
       authorId: number;
-      authorUsername: string;
     };
     RsDataEditResponseBody: {
       resultCode: string;
@@ -138,12 +138,12 @@ export interface components {
       title: string;
       published: boolean;
       /** Format: date-time */
-      createDate: string;
-      /** Format: date-time */
       modifyDate: string;
+      /** Format: date-time */
+      createDate: string;
+      authorUsername: string;
       /** Format: int64 */
       authorId: number;
-      authorUsername: string;
     };
     RsDataGetItemsResponseBody: {
       resultCode: string;

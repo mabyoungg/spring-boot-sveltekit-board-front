@@ -88,5 +88,7 @@
 </script>
 
 {#if post}
-  <ToastUiEditor bind:this={toastUiEditor} body={post.body} />
+  {#key post.id}
+    <ToastUiEditor bind:this={toastUiEditor} body={post.body} />
+  {/key}
 {/if}

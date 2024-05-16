@@ -62,11 +62,11 @@ export interface components {
       /** Format: int64 */
       id: number;
       title: string;
-      /** Format: date-time */
-      modifyDate: string;
+      published: boolean;
       /** Format: date-time */
       createDate: string;
-      published: boolean;
+      /** Format: date-time */
+      modifyDate: string;
       /** Format: int64 */
       authorId: number;
       authorUsername: string;
@@ -119,17 +119,28 @@ export interface components {
       success: boolean;
     };
     GetItemsResponseBody: {
-      items: components["schemas"]["PostListItemDto"][];
+      itemPage: components["schemas"]["PageDtoPostListItemDto"];
+    };
+    PageDtoPostListItemDto: {
+      /** Format: int64 */
+      totalElementsCount: number;
+      /** Format: int64 */
+      pageElementsCount: number;
+      /** Format: int64 */
+      totalPagesCount: number;
+      /** Format: int32 */
+      number: number;
+      content: components["schemas"]["PostListItemDto"][];
     };
     PostListItemDto: {
       /** Format: int64 */
       id: number;
       title: string;
-      /** Format: date-time */
-      modifyDate: string;
+      published: boolean;
       /** Format: date-time */
       createDate: string;
-      published: boolean;
+      /** Format: date-time */
+      modifyDate: string;
       /** Format: int64 */
       authorId: number;
       authorUsername: string;
@@ -300,6 +311,13 @@ export interface operations {
   };
   /** 글 리스트 */
   getItems: {
+    parameters: {
+      query?: {
+        page?: number;
+        kw?: string;
+        kwType?: "TITLE" | "TITLE_OR_BODY" | "NAME" | "ALL";
+      };
+    };
     responses: {
       /** @description OK */
       200: {
